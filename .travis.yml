@@ -1,0 +1,11 @@
+language: python
+python:
+    - "3.8"
+env:
+    - EXAMPLE_ENV="wew"
+install:
+    - pip install pipenv
+    - pipenv --bare install --ignore-pipfile --dev
+script:
+    - ./build_scripts/local/unit_test.sh
+# TODO - Maybe come back here and install coverage

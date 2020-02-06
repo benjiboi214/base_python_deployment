@@ -1,0 +1,29 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+        - echo Entered the install phase...
+        - apt-get update
+        - apt-get install firefox -y
+        - wget -q "https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz" -O /tmp/geckodriver.tgz && tar zxf /tmp/geckodriver.tgz -C /usr/bin/ && rm /tmp/geckodriver.tgz
+        - pip install pipenv
+  pre_build:
+    commands:
+      - echo Install pipenv environment
+      - pipenv --bare install --ignore-pipfile --dev
+  build:
+    commands:
+      - echo Build started on `date`
+      - ./build_scripts/local/func_test.sh
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - ls -la
+reports:
+  FuncTests:
+    files:
+      - pytest-func.xml
+    base-directory: ./

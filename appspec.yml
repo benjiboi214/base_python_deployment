@@ -14,3 +14,5 @@ Resources:
             Subnets: [ "subnet-05f221ab7134d8d4d", "subnet-07f4757a3b1f7a637"]
             SecurityGroups: ["sg-07faf38989e526674"]
             AssignPublicIp: "ENABLED"
+
+# TODO: Use the AfterAllowTestTraffic hook to run the functional tests and optionally block the deployment

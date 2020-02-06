@@ -1,0 +1,34 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+        - echo Entered the install phase...
+        - pip install pipenv
+  pre_build:
+    commands:
+      - echo Install pipenv environment
+      - pipenv --bare install --ignore-pipfile --dev
+  build:
+    commands:
+      - echo Build started on `date`
+      - ./build_scripts/local/unit_test.sh
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - ls -la
+reports:
+  UnitTests:
+    files:
+      - pytest-unit.xml
+    base-directory: ./
+  CoverageTests:
+    files:
+      - coverage.xml
+    base-directory: ./
+  Flake8Tests:
+    files:
+      - flake8.xml
+    base-directory: ./
